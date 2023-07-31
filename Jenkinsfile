@@ -2,19 +2,15 @@ pipeline {
     agent any 
 
     stages {
-        parallel {
-            stage ("API") {
-                steps {
+        stage ('Build') {
+            parallel(
+                "API pipeline": {
                     build(job: 'api-pipeline', file: 'api-jenkinsfile.groovy')
                 }
-            }
-
-            stage("Web") {
-                steps {
+                "Web pipeline": {
                     build(job: 'web-pipeline', file: 'web-jenkinsfile.groovy')
                 }
-            }
+            )
         }
     }
-
 }
