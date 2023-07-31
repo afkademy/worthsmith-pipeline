@@ -6,13 +6,13 @@ pipeline {
             parallel{
                 stage("API Pipeline") {
                     steps {
-                        build(job: 'api-pipeline', scriptPath: 'api-jenkinsfile.groovy')
+                        build(job: 'api-pipeline', parameters: [file('api-jenkinsfile.groovy')])
                     }
                 }
                 
                 stage("Web pipeline") {
                     steps {
-                        build(job: 'web-pipeline', scriptPath: 'web-jenkinsfile.groovy')
+                        build(job: 'web-pipeline', parameters: [file('web-jenkinsfile.groovy')])
                     }
                 }
             }
